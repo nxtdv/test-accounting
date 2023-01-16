@@ -1,26 +1,31 @@
-<template class="testset">
+<template>
     <div class="container">
         <navbar page-name="calculator"></navbar>
 
         <div class="main">
             <div class="soldeContainer">
                 <div class="titleTransaction">SOLDE</div>
-                <div class="soldesContainer">
+                <div v-if="loading" class="loader">
+                    <loader></loader>
+                </div>
+
+                <div v-else-if="!loading && totalRecipe && totalSpent && soldeTotal" class="soldesContainer">
                     <div class="allSoldes">
                         <div class="recette">
                             <span class="recetteTitle">RECETTE</span>
-                            <span class="recetteAmount">+{{this.totalRecipe}}</span>
+                            <span class="recetteAmount">{{!totalRecipe ? 0 : `+ ${totalRecipe}`}}</span>
                         </div>
                         <div class="depense">
                             <span class="depenseTitle">DEPENSE</span>
-                            <span class="depenseAmount">-{{this.totalSpent}}</span>
+                            <span class="depenseAmount">{{!totalSpent ? 0 : `- ${totalSpent}`}}</span>
                         </div>
                     </div>
                     <div class="endSolde">
                         <span class="endSoldeTitle">SOLDE TOTAL</span>
-                        <span class="endSoldeAmount">{{this.soldeTotal}}</span>
+                        <span class="endSoldeAmount">{{!soldeTotal ? 0 : soldeTotal}}</span>
                     </div>
                 </div>
+                <div class="isEmpty" v-else>Please enter a rib.</div>
             </div>
 
             <r-i-b v-bind:input-area="inputArea" v-bind:regex="regex" v-bind:min-date="minDate" v-bind:max-date="maxDate" v-bind:submit-form="submitForm"></r-i-b>
@@ -32,12 +37,14 @@
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
 import RIB from "../components/RIB.vue";
+import Loader from "../components/Loader.vue";
 
 export default {
     name: "calculator",
     components: {
         Navbar,
-        RIB
+        RIB,
+        Loader
     },
     comments: {
         Navbar,
@@ -47,6 +54,7 @@ export default {
     {
         return {
             regex: false,
+            loading: false,
             soldeTotal: "",
             totalRecipe: 0,
             totalSpent: 0,
@@ -57,6 +65,9 @@ export default {
     },
     methods: {
         async submitForm() {
+            this.loading = true
+            setTimeout(() => this.loading = false, 3000)
+
             function formatBalanceInEuros(amount) {
                 return (amount.toLocaleString('fr-FR', {style: 'currency', currency: 'EUR', maximumFractionDigits: 0}))
             }
@@ -168,6 +179,20 @@ export default {
 .soldeContainer .soldesContainer .endSolde .endSoldeAmount {
     font-weight: 800;
     font-size: 150px;
+}
+
+.soldeContainer .isEmpty {
+    display: flex;
+    justify-content: center;
+    padding: 0 100px;
+    margin-top: 200px;
+}
+
+.soldeContainer .loader {
+    display: flex;
+    justify-content: center;
+    padding: 0 100px;
+    margin-top: 200px
 }
 
 input[type="search"]::-webkit-search-decoration,
