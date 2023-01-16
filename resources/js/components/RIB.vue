@@ -7,16 +7,7 @@
                 <input :style="inputArea ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' }" class="box" v-on:keydown="regex = false" type="search" v-model="inputArea" placeholder="Rentrer un RIB">
             </div>
 
-            <div class="dateInput">
-                <div class="minDate">
-                    <span>Date minimum:</span>
-                    <input :style="minDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' }" name="min-date" type="date" v-model="minDate">
-                </div>
-                <div class="maxDate">
-                    <span>Date maximum:</span>
-                    <input :min="minDate" :style="maxDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' }" name="max-date" type="date" v-model="maxDate">
-                </div>
-            </div>
+            <Periode :min-date="minDate" :max-date="maxDate"></Periode>
 
             <button
                 :style="inputArea && minDate && maxDate ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : { 'border': 'none' }"
@@ -27,8 +18,12 @@
 </template>
 
 <script>
+import Periode from "./Periode.vue";
 export default {
     name: "RIB",
+    components: {
+        Periode
+    },
     props: {
         inputArea: String,
         regex: Boolean,
@@ -87,81 +82,6 @@ export default {
     outline: 2px solid transparent;
     outline-offset: 2px;
 }
-
-.homeContainer .inputContainer .dateInput {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 0 34px;
-    width: 439px;
-}
-.homeContainer .inputContainer .dateInput .minDate {
-    display: flex;
-    flex-direction: column;
-}
-
-.homeContainer .inputContainer .dateInput .minDate input {
-    padding: 0 2.5rem 0 2.5rem;
-}
-
-
-.homeContainer .inputContainer .dateInput .maxDate {
-    display: flex;
-    flex-direction: column;
-}
-
-.homeContainer .inputContainer .dateInput .maxDate input {
-    padding: 0 2.5rem 0 2.5rem;
-}
-
-.homeContainer .inputContainer .dateInput .maxDate span {
-    font-weight: 800;
-    padding: 0 0 23px;
-}
-
-.homeContainer .inputContainer .dateInput .maxDate input {
-    font-family: Poppins, sans-serif;
-    font-size: 15px;
-    --tw-text-opacity: 1;
-    color: rgb(163 163 163/var(--tw-text-opacity));
-    width: 189px;
-    background-color: hsla(0,0%,100%,.05);
-    border: 1px solid hsla(0,0%,100%,.09);
-    border-radius: 0.25rem;
-    height: 40px;
-    color-scheme: dark;
-}
-
-.homeContainer .inputContainer .dateInput .maxDate input:focus {
-    --tw-border-opacity: 1;
-    border: 2px solid rgb(246 184 62/var(--tw-border-opacity));
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-}
-
-.homeContainer .inputContainer .dateInput .minDate span {
-    font-weight: 800;
-    padding: 0 0 23px;
-}
-
-.homeContainer .inputContainer .dateInput .minDate input {
-    font-family: Poppins, sans-serif;
-    font-size: 15px;
-    --tw-text-opacity: 1;
-    color: rgb(163 163 163/var(--tw-text-opacity));
-    width: 189px;
-    background-color: hsla(0,0%,100%,.05);
-    border: 1px solid hsla(0,0%,100%,.09);
-    border-radius: 0.25rem;
-    height: 40px;
-    color-scheme: dark;
-}
-.homeContainer .inputContainer .dateInput .minDate input:focus {
-    --tw-border-opacity: 1;
-    border: 2px solid rgb(246 184 62/var(--tw-border-opacity));
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-}
-
 
 .searchButton {
     color: #C8FEC7;
