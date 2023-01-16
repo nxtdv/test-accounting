@@ -139,6 +139,12 @@ export default {
     width: 100%;
 }
 
+.same {
+    display: flex;
+    justify-content: center;
+    width: 160px;
+}
+
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
