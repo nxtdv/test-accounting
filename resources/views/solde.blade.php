@@ -23,7 +23,7 @@
     </head>
     <body>
         <div id="app">
-            <calculator></calculator>
+            <solde></solde>
         </div>
     </body>
     <script src="{{ mix('/js/app.js') }}"></script>

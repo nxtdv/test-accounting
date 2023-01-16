@@ -6,7 +6,7 @@
             </div>
             <ul class="list-item">
                 <li v-bind:class="[pageName === 'home' ? 'active' : '']"><a href="/">Home</a></li>
-                <li v-bind:class="[pageName === 'calculator' ? 'active' : '']"><a href="/calculator">Calculator</a></li>
+                <li v-bind:class="[pageName === 'solde' ? 'active' : '']"><a href="/solde">Solde</a></li>
             </ul>
         </nav>
     </header>

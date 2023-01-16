@@ -1,6 +1,6 @@
 <template class="testset">
     <div class="container">
-        <navbar page-name="calculator"></navbar>
+        <navbar page-name="solde"></navbar>
 
         <div class="main">
             <div class="soldeContainer">
@@ -34,7 +34,7 @@ import Navbar from "../components/Navbar.vue";
 import RIB from "../components/RIB.vue";
 
 export default {
-    name: "calculator",
+    name: "solde",
     components: {
         Navbar,
         RIB
