@@ -20,6 +20,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/calculator', function () {
-    return view('calculator');
+Route::get('/solde', function () {
+    return view('solde');
 });
