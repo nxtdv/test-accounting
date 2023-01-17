@@ -1,10 +1,10 @@
 <template>
-    <div class="dateInput">
-        <div class="minDate">
+    <div class="date_input">
+        <div class="min_date">
             <span>Date minimum:</span>
             <input :style="minDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' }" name="min-date" type="date" v-model="minDate">
         </div>
-        <div class="maxDate">
+        <div class="max_date">
             <span>Date maximum:</span>
             <input :min="minDate" :style="maxDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' }" name="max-date" type="date" v-model="maxDate">
         </div>
@@ -22,37 +22,37 @@ export default {
 </script>
 
 <style scoped>
-.dateInput {
+.date_input {
     display: flex;
     justify-content: space-between;
     margin: 0 0 34px;
     width: 439px;
 }
-.dateInput .minDate {
+.date_input .min_date {
     display: flex;
     flex-direction: column;
 }
 
-.dateInput .minDate input {
+.date_input .min_date input {
     padding: 0 2.5rem 0 2.5rem;
 }
 
 
-.dateInput .maxDate {
+.date_input .max_date {
     display: flex;
     flex-direction: column;
 }
 
-.dateInput .maxDate input {
+.date_input .max_date input {
     padding: 0 2.5rem 0 2.5rem;
 }
 
-.dateInput .maxDate span {
+.date_input .max_date span {
     font-weight: 800;
     padding: 0 0 23px;
 }
 
-.dateInput .maxDate input {
+.date_input .max_date input {
     font-family: Poppins, sans-serif;
     font-size: 15px;
     --tw-text-opacity: 1;
@@ -65,19 +65,19 @@ export default {
     color-scheme: dark;
 }
 
-.dateInput .maxDate input:focus {
+.date_input .max_date input:focus {
     --tw-border-opacity: 1;
     border: 2px solid rgb(246 184 62/var(--tw-border-opacity));
     outline: 2px solid transparent;
     outline-offset: 2px;
 }
 
-.dateInput .minDate span {
+.date_input .min_date span {
     font-weight: 800;
     padding: 0 0 23px;
 }
 
-.dateInput .minDate input {
+.date_input .min_date input {
     font-family: Poppins, sans-serif;
     font-size: 15px;
     --tw-text-opacity: 1;
@@ -89,7 +89,7 @@ export default {
     height: 40px;
     color-scheme: dark;
 }
-.dateInput .minDate input:focus {
+.date_input .min_date input:focus {
     --tw-border-opacity: 1;
     border: 2px solid rgb(246 184 62/var(--tw-border-opacity));
     outline: 2px solid transparent;

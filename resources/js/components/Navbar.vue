@@ -1,10 +1,10 @@
 <template>
     <header>
         <nav>
-            <div class="page-title">
-                <img class="logoNav" :src="require('../../assets/logo_cf.png')"/>
+            <div class="page_title">
+                <img class="logo_nav" :src="require('../../assets/logo_cf.png')"/>
             </div>
-            <ul class="list-item">
+            <ul class="list_item">
                 <li v-bind:class="[pageName === 'home' ? 'active' : '']"><a href="/">Home</a></li>
                 <li v-bind:class="[pageName === 'solde' ? 'active' : '']"><a href="/solde">Solde</a></li>
             </ul>
@@ -30,7 +30,7 @@ nav {
     padding: 0 100px 0 100px;
 }
 
-.page-title {
+.page_title {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -38,11 +38,11 @@ nav {
     font-size: 30px;
 }
 
-.page-title .logoNav {
+.page_title .logo_nav {
     height: 80px;
 }
 
-.list-item {
+.list_item {
     display: flex;
     align-items: center;
 }
@@ -59,7 +59,7 @@ nav {
     border-radius: 0.375rem;
 }
 
-.list-item li a {
+.list_item li a {
     text-decoration: none;
     letter-spacing: 1px;
     text-transform: uppercase;

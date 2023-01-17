@@ -1,8 +1,8 @@
 <template>
-    <div class="homeContainer">
-        <div class="titleRIB">RIB</div>
-        <div class="inputContainer">
-            <div class="ribInput">
+    <div class="home_container">
+        <div class="title_rib">RIB</div>
+        <div class="input_container">
+            <div class="rib_input">
                 <span>Veuillez renseigner un RIB.</span>
                 <input :style="inputArea ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' }" class="box" v-on:keydown="regex = false" type="search" v-model="inputArea" placeholder="Rentrer un RIB">
             </div>
@@ -12,7 +12,7 @@
             <button
                 :style="inputArea && minDate && maxDate ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : { 'border': 'none' }"
                 :disabled="!(inputArea && minDate && maxDate)"
-                type="submit" value="Submit" @click.prevent="submitForm" class="searchButton">Search</button>
+                type="submit" value="Submit" @click.prevent="submitForm" class="search_button">Search</button>
         </div>
     </div>
 </template>
@@ -35,33 +35,33 @@ export default {
 </script>
 
 <style scoped>
-.homeContainer {
+.home_container {
     display: flex;
     flex-direction: column;
 }
 
-.homeContainer .titleRIB {
+.home_container .title_rib {
     font-weight: 700;
     font-size: 40px;
     padding: 0 0 0 100px;
 }
 
-.homeContainer .inputContainer {
+.home_container .input_container {
     padding: 0 100px 0 100px;
 }
 
-.homeContainer .inputContainer .ribInput {
+.home_container .input_container .rib_input {
     display: flex;
     flex-direction: column;
     margin: 50px 0 34px
 }
 
-.homeContainer .inputContainer .ribInput span {
+.home_container .input_container .rib_input span {
     font-weight: 800;
     padding: 0 0 23px;
 }
 
-.homeContainer .inputContainer .ribInput input {
+.home_container .input_container .rib_input input {
     outline: none 0 !important;
     color: white;
     font-size: 14px;
@@ -76,14 +76,14 @@ export default {
      font-weight: 600;
  }
 
-.homeContainer .inputContainer input:focus {
+.home_container .input_container input:focus {
     --tw-border-opacity: 1;
     border-color: rgb(246 184 62/var(--tw-border-opacity));
     outline: 2px solid transparent;
     outline-offset: 2px;
 }
 
-.searchButton {
+.search_button {
     color: #C8FEC7;
     background: rgba(200, 254, 199,.082);
 

@@ -3,29 +3,29 @@
         <navbar page-name="solde"></navbar>
 
         <div class="main">
-            <div class="soldeContainer">
-                <div class="titleTransaction">SOLDE</div>
+            <div class="solde_container">
+                <div class="title_transaction">SOLDE</div>
                 <div v-if="loading" class="loader">
                     <loader></loader>
                 </div>
 
-                <div v-else-if="!loading && totalRecipe && totalSpent && soldeTotal" class="soldesContainer">
-                    <div class="allSoldes">
+                <div v-else-if="!loading && totalRecipe && totalSpent && soldeTotal" class="soldes_container">
+                    <div class="all_soldes">
                         <div class="recette">
-                            <span class="recetteTitle">RECETTE</span>
-                            <span class="recetteAmount">{{ verificationIsEmptyRecipe }}</span>
+                            <span class="recette_title">RECETTE</span>
+                            <span class="recette_amount">{{ verificationIsEmptyRecipe }}</span>
                         </div>
                         <div class="depense">
-                            <span class="depenseTitle">DEPENSE</span>
-                            <span class="depenseAmount">{{ verificationIsEmptySpent }}</span>
+                            <span class="depense_title">DEPENSE</span>
+                            <span class="depense_amount">{{ verificationIsEmptySpent }}</span>
                         </div>
                     </div>
                     <div class="endSolde">
-                        <span class="endSoldeTitle">SOLDE TOTAL</span>
-                        <span class="endSoldeAmount">{{ verificationIsEmptySoldeTotal }}</span>
+                        <span class="end_solde_title">SOLDE TOTAL</span>
+                        <span class="end_solde_amount">{{ verificationIsEmptySoldeTotal }}</span>
                     </div>
                 </div>
-                <div class="isEmpty" v-else>Please enter a rib.</div>
+                <div class="is_empty" v-else>Please enter a rib.</div>
             </div>
 
             <r-i-b v-bind:input-area="inputArea" v-bind:regex="regex" v-bind:min-date="minDate" v-bind:max-date="maxDate" v-bind:submit-form="submitForm"></r-i-b>
@@ -125,81 +125,81 @@ export default {
     margin-top: 50px;
 }
 
-.soldeContainer {
+.solde_container {
     width: 100%;
     height: 100%;
 }
 
-.soldeContainer .titleTransaction {
+.solde_container .title_transaction {
     font-weight: 700;
     padding: 0 0 0 100px;
     font-size: 40px;
 }
 
-.soldeContainer .soldesContainer {
+.solde_container .soldes_container {
     margin-top: 50px;
     padding: 0 50px 0 100px;
 }
 
-.soldeContainer .soldesContainer .allSoldes {
+.solde_container .soldes_container .all_soldes {
     display: flex;
     justify-content: space-between;
 }
 
-.soldeContainer .soldesContainer .allSoldes .recette {
+.solde_container .soldes_container .all_soldes .recette {
     display: flex;
     flex-direction: column;
 }
 
-.soldeContainer .soldesContainer .allSoldes .recette .recetteTitle {
+.solde_container .soldes_container .all_soldes .recette .recette_title {
     font-weight: 500;
     font-size: 25px;
 }
-.soldeContainer .soldesContainer .allSoldes .recette .recetteAmount {
+.solde_container .soldes_container .all_soldes .recette .recette_amount {
     font-weight: 600;
     font-size: 60px;
     color: rgb(200, 254, 199);
 }
 
-.soldeContainer .soldesContainer .allSoldes .depense {
+.solde_container .soldes_container .all_soldes .depense {
     display: flex;
     flex-direction: column;
     margin-right: 180px;
 }
 
-.soldeContainer .soldesContainer .allSoldes .depense .depenseTitle {
+.solde_container .soldes_container .all_soldes .depense .depense_title {
     font-weight: 500;
     font-size: 25px;
 }
-.soldeContainer .soldesContainer .allSoldes .depense .depenseAmount {
+.solde_container .soldes_container .all_soldes .depense .depense_amount {
     font-weight: 600;
     font-size: 60px;
     color: rgb(235, 87, 87);
 }
 
-.soldeContainer .soldesContainer .endSolde {
+.solde_container .soldes_container .endSolde {
     display: flex;
     flex-direction: column;
     margin-top: 90px;
 }
 
-.soldeContainer .soldesContainer .endSolde .endSoldeTitle {
+.solde_container .soldes_container .endSolde .end_solde_title {
     font-weight: 500;
     font-size: 25px;
 }
-.soldeContainer .soldesContainer .endSolde .endSoldeAmount {
+.solde_container .soldes_container .endSolde .end_solde_amount {
     font-weight: 800;
     font-size: 150px;
 }
 
-.soldeContainer .isEmpty {
+.solde_container .is_empty {
     display: flex;
     justify-content: center;
     padding: 0 100px;
     margin-top: 200px;
 }
 
-.soldeContainer .loader {
+.solde_container .loader {
     display: flex;
     justify-content: center;
     padding: 0 100px;

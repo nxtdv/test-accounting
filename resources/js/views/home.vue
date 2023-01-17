@@ -5,13 +5,13 @@
         <div class="main">
             <r-i-b v-bind:input-area="inputArea" v-bind:regex="regex" v-bind:min-date="minDate" v-bind:max-date="maxDate" v-bind:submit-form="submitForm"></r-i-b>
 
-            <div class="operationContainer">
-                <div class="titleTransaction">
+            <div class="operation_container">
+                <div class="title_transaction">
                     TRANSACTION
                 </div>
 
                 <div  class="transactions">
-                    <div class="templateTransactions">
+                    <div class="template_transactions">
                         <span class="same">Name</span>
                         <span class="same">ID</span>
                         <span class="same">RIB</span>
@@ -98,24 +98,24 @@ export default {
     margin-top: 50px;
 }
 
-.operationContainer {
+.operation_container {
     width: 100%;
     height: 100%;
     padding: 0 100px 0 50px;
 }
 
-.operationContainer .titleTransaction {
+.operation_container .title_transaction {
     font-weight: 700;
     font-size: 40px;
 }
 
-.operationContainer .transactions {
+.operation_container .transactions {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.operationContainer .transactions .templateTransactions {
+.operation_container .transactions .template_transactions {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -132,7 +132,7 @@ export default {
     border-radius: 0.25rem;
 }
 
-.operationContainer .transactions .condition {
+.operation_container .transactions .condition {
     display: flex;
     flex-direction: column;
     align-items: center;
