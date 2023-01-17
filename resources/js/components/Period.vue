@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: "Periode",
+    name: "Period",
     props: {
         minDate: String,
         maxDate: String

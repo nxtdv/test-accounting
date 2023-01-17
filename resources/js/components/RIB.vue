@@ -7,7 +7,7 @@
                 <input :style="inputArea ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' }" class="box" v-on:keydown="regex = false" type="search" v-model="inputArea" placeholder="Rentrer un RIB">
             </div>
 
-            <Periode :min-date="minDate" :max-date="maxDate"></Periode>
+            <Period :min-date="minDate" :max-date="maxDate"></Period>
 
             <button
                 :style="inputArea && minDate && maxDate ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : { 'border': 'none' }"
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import Periode from "./Periode.vue";
+import Period from "./Period.vue";
 export default {
     name: "RIB",
     components: {
-        Periode
+        Period
     },
     props: {
         inputArea: String,
