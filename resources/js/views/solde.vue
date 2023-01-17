@@ -1,31 +1,31 @@
 <template>
-    <div class="container">
+    <div class="solde-container">
         <navbar page-name="solde"></navbar>
 
-        <div class="main">
-            <div class="soldeContainer">
-                <div class="titleTransaction">SOLDE</div>
+        <div class="container">
+            <div class="solde-container">
+                <div class="title-transaction">SOLDE</div>
                 <div v-if="loading" class="loader">
                     <loader></loader>
                 </div>
 
-                <div v-else-if="!loading && totalRecipe && totalSpent && soldeTotal" class="soldesContainer">
-                    <div class="allSoldes">
-                        <div class="recette">
-                            <span class="recetteTitle">RECETTE</span>
-                            <span class="recetteAmount">{{ verificationIsEmptyRecipe }}</span>
+                <div v-else-if="!loading && totalRecipe && totalSpent && soldeTotal" class="soldes-container">
+                    <div class="all-soldes">
+                        <div class="recipe">
+                            <span class="recipe-title">RECETTE</span>
+                            <span class="recipe-amount">{{ verificationIsEmptyRecipe }}</span>
                         </div>
                         <div class="depense">
-                            <span class="depenseTitle">DEPENSE</span>
-                            <span class="depenseAmount">{{ verificationIsEmptySpent }}</span>
+                            <span class="spent-title">DEPENSE</span>
+                            <span class="spent-amount">{{ verificationIsEmptySpent }}</span>
                         </div>
                     </div>
-                    <div class="endSolde">
-                        <span class="endSoldeTitle">SOLDE TOTAL</span>
-                        <span class="endSoldeAmount">{{ verificationIsEmptySoldeTotal }}</span>
+                    <div class="solde">
+                        <span class="solde-title">SOLDE TOTAL</span>
+                        <span class="solde-mount">{{ verificationIsEmptySoldeTotal }}</span>
                     </div>
                 </div>
-                <div class="isEmpty" v-else>Please enter a rib.</div>
+                <div class="is-empty" v-else>Please enter a rib.</div>
             </div>
 
             <r-i-b v-bind:input-area="inputArea" v-bind:regex="regex" v-bind:min-date="minDate" v-bind:max-date="maxDate" v-bind:submit-form="submitForm"></r-i-b>
@@ -65,7 +65,7 @@ export default {
     },
     computed: {
         verificationIsEmptyRecipe() {
-            return!this.totalRecipe ? 0 : `+ ${this.totalRecipe}`;
+            return !this.totalRecipe ? 0 : `+ ${this.totalRecipe}`;
         },
         verificationIsEmptySpent() {
             return !this.totalSpent ? 0 : `- ${this.totalSpent}`;
@@ -115,95 +115,98 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
+<style lang="scss" scoped>
+.solde-container {
     color: #ffffff;
-}
 
-.main {
-    display: flex;
-    margin-top: 50px;
-}
+    .container {
+        display: flex;
+        margin-top: 50px;
 
-.soldeContainer {
-    width: 100%;
-    height: 100%;
-}
+        .solde-container {
+            width: 100%;
+            height: 100%;
 
-.soldeContainer .titleTransaction {
-    font-weight: 700;
-    padding: 0 0 0 100px;
-    font-size: 40px;
-}
+            .title-transaction {
+                font-weight: 700;
+                padding-left: 100px;
+                font-size: 40px;
+            }
 
-.soldeContainer .soldesContainer {
-    margin-top: 50px;
-    padding: 0 50px 0 100px;
-}
+            .soldes-container {
+                margin-top: 50px;
+                padding: 0 50px 0 100px;
 
-.soldeContainer .soldesContainer .allSoldes {
-    display: flex;
-    justify-content: space-between;
-}
+                .all-soldes {
+                    display: flex;
+                    justify-content: space-between;
 
-.soldeContainer .soldesContainer .allSoldes .recette {
-    display: flex;
-    flex-direction: column;
-}
+                    .recipe {
+                        display: flex;
+                        flex-direction: column;
 
-.soldeContainer .soldesContainer .allSoldes .recette .recetteTitle {
-    font-weight: 500;
-    font-size: 25px;
-}
-.soldeContainer .soldesContainer .allSoldes .recette .recetteAmount {
-    font-weight: 600;
-    font-size: 60px;
-    color: rgb(200, 254, 199);
-}
+                        .recipe-title {
+                            font-weight: 500;
+                            font-size: 25px;
+                        }
 
-.soldeContainer .soldesContainer .allSoldes .depense {
-    display: flex;
-    flex-direction: column;
-    margin-right: 180px;
-}
+                        .recipe-amount {
+                            font-weight: 600;
+                            font-size: 60px;
+                            color: rgb(200, 254, 199);
+                        }
+                    }
 
-.soldeContainer .soldesContainer .allSoldes .depense .depenseTitle {
-    font-weight: 500;
-    font-size: 25px;
-}
-.soldeContainer .soldesContainer .allSoldes .depense .depenseAmount {
-    font-weight: 600;
-    font-size: 60px;
-    color: rgb(235, 87, 87);
-}
+                    .depense {
+                        display: flex;
+                        flex-direction: column;
+                        margin-right: 180px;
 
-.soldeContainer .soldesContainer .endSolde {
-    display: flex;
-    flex-direction: column;
-    margin-top: 90px;
-}
+                        .spent-title {
+                            font-weight: 500;
+                            font-size: 25px;
+                        }
 
-.soldeContainer .soldesContainer .endSolde .endSoldeTitle {
-    font-weight: 500;
-    font-size: 25px;
-}
-.soldeContainer .soldesContainer .endSolde .endSoldeAmount {
-    font-weight: 800;
-    font-size: 150px;
-}
+                        .spent-amount {
+                            font-weight: 600;
+                            font-size: 60px;
+                            color: rgb(235, 87, 87);
+                        }
+                    }
+                }
 
-.soldeContainer .isEmpty {
-    display: flex;
-    justify-content: center;
-    padding: 0 100px;
-    margin-top: 200px;
-}
+                .solde {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 90px;
 
-.soldeContainer .loader {
-    display: flex;
-    justify-content: center;
-    padding: 0 100px;
-    margin-top: 200px
+                    .solde-title {
+                        font-weight: 500;
+                        font-size: 25px;
+                    }
+
+                    .solde-mount {
+                        font-weight: 800;
+                        font-size: 150px;
+                    }
+                }
+            }
+
+            .is-empty {
+                display: flex;
+                justify-content: center;
+                padding: 0 100px;
+                margin-top: 200px;
+            }
+
+            .loader {
+                display: flex;
+                justify-content: center;
+                padding: 0 100px;
+                margin-top: 200px
+            }
+        }
+    }
 }
 
 input[type="search"]::-webkit-search-decoration,
