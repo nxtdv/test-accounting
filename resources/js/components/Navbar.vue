@@ -21,51 +21,53 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "resources/sass/variables";
+
 nav {
     display: flex;
     justify-content: space-between;
     height: 90px;
     align-items: center;
-    padding: 0 100px 0 100px;
-}
+    padding: 0 100px;
 
-.page-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 700;
-    font-size: 30px;
-}
+    .page-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 30px;
 
-.page-title .logoNav {
-    height: 80px;
-}
+        .logoNav {
+            height: 80px;
+        }
+    }
 
-.list-item {
-    display: flex;
-    align-items: center;
-}
+    .list-item {
+        display: flex;
+        align-items: center;
 
-.active {
-    color: #C8FEC7;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-    padding: 0.5rem 1rem;
-    background-color: hsla(0,0%,100%,.09);
-    border-radius: 0.375rem;
-}
+        .active {
+            color: $green-general;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 15px;
+            padding: 0.5rem 1rem;
+            background-color: hsla(0,0%,100%,.09);
+            border-radius: 0.375rem;
+        }
 
-.list-item li a {
-    text-decoration: none;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: 12px;
-    line-height: 15px;
-    padding: 0.5rem 1rem;
+        li a {
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 12px;
+            line-height: 15px;
+            padding: 0.5rem 1rem;
+        }
+    }
 }
 </style>

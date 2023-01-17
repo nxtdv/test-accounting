@@ -1,29 +1,29 @@
 <template>
-    <div class="container">
+    <div class="home-container">
         <navbar page-name="home"></navbar>
 
-        <div class="main">
+        <div class="container">
             <r-i-b v-bind:input-area="inputArea" v-bind:regex="regex" v-bind:min-date="minDate" v-bind:max-date="maxDate" v-bind:submit-form="submitForm"></r-i-b>
 
-            <div class="operationContainer">
-                <div class="titleTransaction">
+            <div class="transactions-container">
+                <div class="title-transaction">
                     TRANSACTION
                 </div>
 
                 <div  class="transactions">
-                    <div class="templateTransactions">
-                        <span class="same">Name</span>
-                        <span class="same">ID</span>
-                        <span class="same">RIB</span>
-                        <span class="same">Recette</span>
-                        <span class="same">Dépense</span>
-                        <span class="same">Date</span>
+                    <div class="template-transactions">
+                        <span class="value-in-transaction">Name</span>
+                        <span class="value-in-transaction">ID</span>
+                        <span class="value-in-transaction">RIB</span>
+                        <span class="value-in-transaction">Recette</span>
+                        <span class="value-in-transaction">Dépense</span>
+                        <span class="value-in-transaction">Date</span>
                     </div>
 
                     <loader style="margin-top: 200px" v-if="loading"></loader>
-                    <div class="condition" v-else-if="!loading">
-                        <span style="margin-top: 200px" v-if="!allTransactionsRequested.length">No transaction found or enter a RIB.</span>
-                        <operation v-else v-bind:allTransactionsRequested="allTransactionsRequested"></operation>
+                    <div class="list-transactions" v-else-if="!loading">
+                        <span style="margin-top: 200px" v-if="!transactionsRequested.length">No transaction found or enter a RIB.</span>
+                        <transaction v-else v-bind:transactionsRequested="transactionsRequested"></transaction>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
 import RIB from "../components/RIB.vue"
-import Operation from "../components/Operation.vue";
+import Transaction from "../components/Transaction.vue";
 import Loader from "../components/Loader.vue";
 
 export default {
@@ -43,14 +43,14 @@ export default {
     components: {
         Navbar,
         RIB,
-        Operation,
+        Transaction,
         Loader
     },
     data() {
         return {
             regex: false,
             loading: false,
-            allTransactionsRequested: [],
+            transactionsRequested: [],
             inputArea: "12345123412345678912",
             minDate: "2021-02-10",
             maxDate: "2024-11-14",
@@ -61,23 +61,23 @@ export default {
             this.loading = true
             setTimeout(() => this.loading = false, 3000)
 
-            this.allTransactionsRequested = []
+            this.transactionsRequested = []
             if (!this.inputArea && !this.minDate && !this.maxDate) {
                 return (this.regex = true)
             }
 
             if (!isNaN(this.inputArea)) {
-                const { minDate, maxDate, allTransactionsRequested } = this;
+                const { minDate, maxDate, transactionsRequested } = this;
                 const response = await axios.get(`/api/transactions/${this.inputArea}`);
-                const { data: allOperations } = response
+                const { data: transactions } = response
 
-                allOperations.forEach(function(operation) {
-                    if (operation.date >= minDate && operation.date <= maxDate) {
-                        allTransactionsRequested.push(operation)
+                transactions.forEach(function(transaction) {
+                    if (transaction.date >= minDate && transaction.date <= maxDate) {
+                        transactionsRequested.push(transaction)
 
-                        if (allTransactionsRequested) {
-                            allTransactionsRequested.sort(function (operationA, operationB) {
-                                return (new Date(operationB.date) - new Date(operationA.date))
+                        if (transactionsRequested) {
+                            transactionsRequested.sort(function (transactionA, transactionB) {
+                                return (new Date(transactionB.date) - new Date(transactionA.date))
                             })
                         }
                     }
@@ -88,61 +88,63 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
+<style lang="scss" scoped>
+@import "resources/sass/variables";
+
+.home-container {
     color: #ffffff;
-}
 
-.main {
-    display: flex;
-    margin-top: 50px;
-}
+    .container {
+        display: flex;
+        margin-top: 50px;
 
-.operationContainer {
-    width: 100%;
-    height: 100%;
-    padding: 0 100px 0 50px;
-}
+        .transactions-container {
+            width: 100%;
+            height: 100%;
+            padding: 0 100px 0 50px;
 
-.operationContainer .titleTransaction {
-    font-weight: 700;
-    font-size: 40px;
-}
+            .title-transaction {
+                font-weight: 700;
+                font-size: 40px;
+            }
 
-.operationContainer .transactions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+            .transactions {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
-.operationContainer .transactions .templateTransactions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 3rem;
-    color: #C8FEC7;
-    background-color: hsla(0,0%,100%,.09);
-    margin-top: 50px;
-    font-weight: 600;
-    font-size: .875rem;
-    line-height: 1.25rem;
-    letter-spacing: .0025em;
-    padding: 0 1rem 0 1rem;
-    border-radius: 0.25rem;
-}
+                .template-transactions {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    height: 3rem;
+                    color: $green-general;
+                    background-color: hsla(0,0%,100%,.09);
+                    margin-top: 50px;
+                    font-weight: 600;
+                    font-size: .875rem;
+                    line-height: 1.25rem;
+                    letter-spacing: .0025em;
+                    padding: 0 1rem;
+                    border-radius: 0.25rem;
 
-.operationContainer .transactions .condition {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
+                    .value-in-transaction {
+                        display: flex;
+                        justify-content: center;
+                        width: 160px;
+                    }
+                }
 
-.same {
-    display: flex;
-    justify-content: center;
-    width: 160px;
+                .list-transactions {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 
 input[type="search"]::-webkit-search-decoration,

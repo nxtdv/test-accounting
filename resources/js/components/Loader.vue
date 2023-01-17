@@ -16,6 +16,12 @@
     </div>
 </template>
 
+<script>
+export default {
+    name: "Loader",
+}
+</script>
+
 <style lang="scss" scoped>
 .spinner {
     height: 50px;
