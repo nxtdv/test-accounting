@@ -13,16 +13,16 @@
                     <div class="allSoldes">
                         <div class="recette">
                             <span class="recetteTitle">RECETTE</span>
-                            <span class="recetteAmount">{{!totalRecipe ? 0 : `+ ${totalRecipe}`}}</span>
+                            <span class="recetteAmount">{{ verificationIsEmptyRecipe }}</span>
                         </div>
                         <div class="depense">
                             <span class="depenseTitle">DEPENSE</span>
-                            <span class="depenseAmount">{{!totalSpent ? 0 : `- ${totalSpent}`}}</span>
+                            <span class="depenseAmount">{{ verificationIsEmptySpent }}</span>
                         </div>
                     </div>
                     <div class="endSolde">
                         <span class="endSoldeTitle">SOLDE TOTAL</span>
-                        <span class="endSoldeAmount">{{!soldeTotal ? 0 : soldeTotal}}</span>
+                        <span class="endSoldeAmount">{{ verificationIsEmptySoldeTotal }}</span>
                     </div>
                 </div>
                 <div class="isEmpty" v-else>Please enter a rib.</div>
@@ -61,6 +61,17 @@ export default {
             inputArea: "12345123412345678912",
             minDate: "2021-02-10",
             maxDate: "2021-02-14",
+        }
+    },
+    computed: {
+        verificationIsEmptyRecipe() {
+            return!this.totalRecipe ? 0 : `+ ${this.totalRecipe}`;
+        },
+        verificationIsEmptySpent() {
+            return !this.totalSpent ? 0 : `- ${this.totalSpent}`;
+        },
+        verificationIsEmptySoldeTotal() {
+            return !this.soldeTotal ? 0 : this.soldeTotal;
         }
     },
     methods: {
