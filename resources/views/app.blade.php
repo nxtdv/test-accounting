@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Counter</title>
+        <title>RIB Finder</title>
 
         <style>
             ul {
@@ -19,11 +19,26 @@
                 background-color: #121212;
                 color: rgb(212 212 212);
             }
+
+            ::-webkit-scrollbar {
+                width: 10px;
+                overflow: auto;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                width: 10px;
+                border-radius: 10px;
+                background: hsl(0deg 0% 100% / 28%);
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(200, 254, 199, 0.5);
+            }
         </style>
     </head>
     <body>
         <div id="app">
-            <solde></solde>
+            <router-view></router-view>
         </div>
     </body>
     <script src="{{ mix('/js/app.js') }}"></script>

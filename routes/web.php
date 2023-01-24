@@ -14,20 +14,7 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/api/transactions/{rib}', [PostController::class, 'getTransactionsByRib']); // getByRib
+Route::get('/api/transactions/{rib}', [PostController::class, 'getTransactionsByRib']);
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/solde', function () {
-    return view('solde');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/register', function () {
-    return view('register');
-});
+Route::view('/{any}', 'app')
+    ->where('any', '.*');
