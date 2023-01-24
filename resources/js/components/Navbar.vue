@@ -2,7 +2,7 @@
     <header>
         <nav>
             <div class="page-title">
-                <img class="logoNav" :src="require('../../assets/logo_cf.png')"/>
+                <img class="logoNav" src="../../assets/logo_cf.png"/>
             </div>
             <ul class="list-item">
                 <li v-bind:class="[pageName === 'home' ? 'active' : '']"><a href="/">Home</a></li>
