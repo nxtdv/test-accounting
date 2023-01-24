@@ -1,9 +1,8 @@
 /**
- * First we will load all of this project's JavaScript dependencies which
+ * First we will load all of this project's JavaScript dependencies whichplehner
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -15,9 +14,10 @@ window.Vue = require('vue').default;
  *
  * Eg. ./components/Loader.vue -> <example-component></example-component>
  */
-
 Vue.component('home', require('./views/home.vue').default);
 Vue.component('solde', require('./views/solde.vue').default);
+Vue.component('login', require("./views/login.vue").default);
+Vue.component('register', require("./views/register.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
