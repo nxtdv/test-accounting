@@ -15,7 +15,6 @@ use App\Http\Controllers\PostController;
 |
 */
 
-//Route::get('transactions/{rib}', [PostController::class, 'getTransactionsByRib']);
 Route::post('transactions', [PostController::class, 'getTransactionsByRib']);
 
 Route::controller(AuthController::class)
