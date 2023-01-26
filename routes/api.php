@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use App\Http\Controllers\AuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//Route::get('transactions/{rib}', [PostController::class, 'getTransactionsByRib']);
+Route::post('transactions', [PostController::class, 'getTransactionsByRib']);
 
 Route::controller(AuthController::class)
     ->prefix("auth")

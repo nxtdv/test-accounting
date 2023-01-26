@@ -16,13 +16,29 @@ const routes = [
         path: '/login',
         name: 'login',
         component: login,
-        meta: { requiresAuth: false }
+        meta: { requiresAuth: false },
+        beforeEnter: async (to, from, next) => {
+            const isLoggedIn = store.state.user.isAuthenticated
+
+            if (isLoggedIn) {
+                return next("/");
+            }
+            next();
+        },
     },
     {
         path: '/register',
         name: 'register',
         component: register,
-        meta: { requiresAuth: false }
+        meta: { requiresAuth: false },
+        beforeEnter: async (to, from, next) => {
+            const isLoggedIn = store.state.user.isAuthenticated
+
+            if (isLoggedIn) {
+                return next("/");
+            }
+            next();
+        },
     },
     {
         path: '/solde',

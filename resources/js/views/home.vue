@@ -3,7 +3,7 @@
         <navbar page-name="home"></navbar>
 
         <div class="container">
-            <r-i-b v-bind:input-area="inputArea" v-bind:regex="regex" v-bind:min-date="minDate" v-bind:max-date="maxDate" v-bind:submit-form="submitForm"></r-i-b>
+            <r-i-b v-bind:regex="regex" v-bind:submit-form="submitForm"></r-i-b>
 
             <div class="transactions-container">
                 <div class="title-transaction">
@@ -51,27 +51,36 @@ export default {
             regex: false,
             loading: false,
             transactionsRequested: [],
-            inputArea: "12345123412345678912",
-            minDate: "2021-02-10",
-            maxDate: "2024-11-14",
+            inputArea: null,
+            minDate: null,
+            maxDate: null,
         }
     },
     methods: {
         async submitForm() {
-            this.loading = true
-            setTimeout(() => this.loading = false, 3000)
-
+            this.$store.state.ribFrom.error = null
+            this.inputArea = this.$store.state.ribFrom.rib
+            this.minDate = this.$store.state.ribFrom.minDate
+            this.maxDate = this.$store.state.ribFrom.maxDate
             this.transactionsRequested = []
+
             if (!this.inputArea && !this.minDate && !this.maxDate) {
                 return (this.regex = true)
             }
 
-            if (!isNaN(this.inputArea)) {
-                const { minDate, maxDate, transactionsRequested } = this;
-                const response = await axios.get(`/api/transactions/${this.inputArea}`);
-                const { data: transactions } = response
+            const { minDate, maxDate, transactionsRequested } = this;
+            const response = await axios.post(`api/transactions`, {
+                rib: this.inputArea,
+                minDate: this.minDate,
+                maxDate: this.maxDate,
+            });
 
-                transactions.forEach(function(transaction) {
+            const { data: result } = response
+
+            if (result.status === 200) {
+                this.loading = true
+                setTimeout(() => this.loading = false, 3000)
+                result.data.forEach(function(transaction) {
                     if (transaction.date >= minDate && transaction.date <= maxDate) {
                         transactionsRequested.push(transaction)
 
@@ -82,6 +91,8 @@ export default {
                         }
                     }
                 })
+            } else if (result.status === 403) {
+                this.$store.state.ribFrom.error = result.error
             }
         }
     }
@@ -146,9 +157,4 @@ export default {
         }
     }
 }
-
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration { display: none; }
 </style>

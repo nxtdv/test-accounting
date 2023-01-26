@@ -2,11 +2,11 @@
     <div class="date-input">
         <div class="min-date">
             <span>Date minimum:</span>
-            <input :style="verificationIsEmptyMinDate" name="min-date" type="date" v-model="minDate">
+            <input :style="verificationIsEmptyMinDate" name="min-date" type="date" v-model="this.$store.state.ribFrom.minDate">
         </div>
         <div class="max-date">
             <span>Date maximum:</span>
-            <input :style="verificationIsEmptyMaxDate" name="max-date" type="date" v-model="maxDate" :min="minDate">
+            <input :style="verificationIsEmptyMaxDate" name="max-date" type="date" v-model="this.$store.state.ribFrom.maxDate" :min="this.$store.state.ribFrom.minDate">
         </div>
     </div>
 </template>
@@ -14,16 +14,12 @@
 <script>
 export default {
     name: "Period",
-    props: {
-        minDate: String,
-        maxDate: String
-    },
     computed: {
         verificationIsEmptyMinDate() {
-            return this.minDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.minDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' };
         },
         verificationIsEmptyMaxDate() {
-            return this.maxDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.maxDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' };
         },
     }
 }

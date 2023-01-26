@@ -4,10 +4,14 @@
         <div class="input-container">
             <div class="rib-input">
                 <span>Veuillez renseigner un RIB.</span>
-                <input :style="verificationIsEmptyInput" class="box" v-on:keydown="regex = false" type="search" v-model="inputArea" placeholder="Rentrer un RIB">
+                <input :style="verificationIsEmptyInput" class="box" v-on:keydown="regex = false" type="text" v-model="this.$store.state.ribFrom.rib" placeholder="Rentrer un RIB">
             </div>
 
-            <Period :min-date="minDate" :max-date="maxDate"></Period>
+            <Period></Period>
+
+            <div v-for="(value, key, index) in this.$store.state.ribFrom.error">
+                <span style="color: rgb(235, 87, 87)" v-for="(data, key, index) in value">{{ data }}</span>
+            </div>
 
             <button
                 :style="verificationIfExists"
@@ -26,20 +30,17 @@ export default {
     },
     computed: {
         verificationIsEmptyInput() {
-            return this.inputArea ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.rib ? !isNaN(this.$store.state.ribFrom.rib) ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' } : { 'border': 'none' };
         },
         verificationIfExists() {
-            return this.inputArea && this.minDate && this.maxDate ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.rib && this.$store.state.ribFrom.minDate && this.$store.state.ribFrom.maxDate ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : { 'border': 'none' };
         },
         verificationIfTrue() {
-            return !(this.inputArea && this.minDate && this.maxDate);
+            return !(this.$store.state.ribFrom.rib && this.$store.state.ribFrom.minDate && this.$store.state.ribFrom.maxDate);
         },
     },
     props: {
-        inputArea: String,
         regex: Boolean,
-        minDate: String,
-        maxDate: String,
         submitForm: Function
     }
 }

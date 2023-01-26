@@ -18,6 +18,10 @@
                     :disabled="verificationIfTrue"
                     type="submit" value="Submit" @click.prevent="submitForm" class="login-button">Login</button>
 
+                <div v-for="(value, key, index) in errors">
+                    <span style="color: rgb(235, 87, 87)" v-for="(data, key, index) in value">{{ data }}</span>
+                </div>
+
                 <span class="redirect">Vous n'avez pas de compte? <a href="/register" class="sign-up-redirect">Sign up</a></span>
             </div>
         </div>
@@ -41,6 +45,7 @@ export default {
             inputAreaEmail: "szemlak@example.net",
             inputAreaPassword: "password",
             defaultBorder: { 'border': '2px solid rgba(200, 254, 199,.50)' },
+            errors: {}
         }
     },
     computed: {
@@ -70,8 +75,11 @@ export default {
 
             const { data } = response
 
-            if (data.status) {
+            if (data.status === 200) {
                 await store.dispatch('setIsAuthenticated', true)
+                this.$router.push({name: "home"})
+            } else if (data.status === 422)  {
+                this.errors = data.error;
             }
         },
     }

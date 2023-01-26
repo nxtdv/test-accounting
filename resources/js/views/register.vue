@@ -30,6 +30,10 @@
                     :disabled="verificationIfTrue"
                     type="submit" value="Submit" @click.prevent="submitForm" class="sign-up-button">Sign up</button>
 
+                <div v-for="(value, key, index) in errors">
+                    <span style="color: rgb(235, 87, 87)" v-for="(data, key, index) in value">{{ data }}</span>
+                </div>
+
                 <span class="redirect">Vous avez un compte? <a href="/login" class="login-redirect">Sign in</a></span>
             </div>
         </div>
@@ -75,7 +79,7 @@ export default {
             return this.inputAreaEmail && this.inputAreaPassword && this.inputAreaFirstname && this.inputAreaLastname ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : null;
         },
         verificationIfTrue() {
-            return !(this.inputAreaEmail && this.inputAreaPassword);
+            return !(this.inputAreaEmail && this.inputAreaPassword && this.inputAreaFirstname && this.inputAreaLastname);
         }
     },
     methods: {
@@ -93,11 +97,12 @@ export default {
 
             const { data } = response
 
-            if (data.status) {
+            if (data.status === 201) {
                 await store.dispatch('setIsAuthenticated', true)
+                this.$router.push({name: "home"})
+            } else if (data.status === 422)  {
+                this.errors = data.error;
             }
-
-            this.errors = data.error;
         },
     }
 }
