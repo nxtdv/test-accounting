@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 import { createApp } from "vue"
+import store from "./store";
 import router from './router';
 import home from './views/home.vue';
 import solde from './views/solde.vue';
@@ -14,4 +15,4 @@ createApp({
         login,
         register
     }
-}).use(router).mount('#app')
+}).use(router).use(store).mount('#app')

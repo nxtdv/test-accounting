@@ -6,6 +6,12 @@ const store = createStore({
             isAuthenticated: false,
             data: []
         },
+        ribFrom: {
+            rib: null,
+            minDate: null,
+            maxDate: null,
+            error: null
+        }
     },
     mutations: {
         'IS_AUTHENTICATED': (state, isAuthenticated) => {

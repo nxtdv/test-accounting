@@ -31,6 +31,7 @@ export default {
         async logout() {
             await axios.post("api/auth/logout")
             await store.dispatch('setIsAuthenticated', false)
+            this.$router.push({name: "login"})
         }
     }
 }

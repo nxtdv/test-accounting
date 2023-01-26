@@ -15,19 +15,30 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->validate(
-            [
-                'email' => ['required', 'email'],
-                'password' => ['required'],
-            ],
-        );
+        $credentials = Validator::make($request->all(), [
+            'email' => ['required', 'email', 'exists:users'],
+            'password' => ['required', 'min:8'],
+        ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return Response(["status" => true]);
+        if(!$credentials->fails()){
+            $user = User::where('email', $request->email)->first();
+
+            if (Hash::check($request->password, $user->password)) {
+                $request->session()->regenerate();
+                return Response([
+                    "status" => 200
+                ]);
+            }
+            return Response([
+                "status" => 422,
+                "error" => ["password"=> "wrong password"]
+            ]);
+        } else {
+            return Response([
+                "status" => 422,
+                "error" => $credentials->errors()
+            ]);
         }
-
-        return Response(["status" => false]);
     }
 
     public function logout(Request $request)
@@ -36,7 +47,10 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Response(["message" => "Vous vous êtes déconnecté(e)."]);
+        return Response([
+            "status" => 200,
+            "message" => "Vous vous êtes déconnecté(e)."
+        ]);
     }
 
     public function register(Request $request)
@@ -64,12 +78,12 @@ class AuthController extends Controller
             ]);
 
             return Response([
-                "status" => true,
+                "status" => 201,
                 "user" => $user
             ]);
         } else {
             return Response([
-                "status" => false,
+                "status" => 422,
                 "error" => $credentials->errors()
             ]);
         }
