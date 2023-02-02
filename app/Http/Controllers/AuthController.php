@@ -26,7 +26,8 @@ class AuthController extends Controller
             if (Hash::check($request->password, $user->password)) {
                 $request->session()->regenerate();
                 return Response([
-                    "status" => 200
+                    "status" => 200,
+                    "user" => $user
                 ]);
             }
             return Response([

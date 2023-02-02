@@ -30,10 +30,10 @@ export default {
     },
     computed: {
         verificationIsEmptyInput() {
-            return this.$store.state.ribFrom.rib ? !isNaN(this.$store.state.ribFrom.rib) ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.rib ? !isNaN(this.$store.state.ribFrom.rib) ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': '1px solid hsla(0,0%,100%,.09);' } : { 'border': '1px solid hsla(0,0%,100%,.09);' };
         },
         verificationIfExists() {
-            return this.$store.state.ribFrom.rib && this.$store.state.ribFrom.minDate && this.$store.state.ribFrom.maxDate ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.rib && this.$store.state.ribFrom.minDate && this.$store.state.ribFrom.maxDate ? { 'background': 'rgba(200, 254, 199,.90)', 'color': 'black' } : { 'border': '1px solid hsla(0,0%,100%,.09);' };
         },
         verificationIfTrue() {
             return !(this.$store.state.ribFrom.rib && this.$store.state.ribFrom.minDate && this.$store.state.ribFrom.maxDate);

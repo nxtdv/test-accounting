@@ -8,7 +8,7 @@
                 <li v-bind:class="[pageName === 'home' ? 'active' : '']"><a href="/">Home</a></li>
                 <li v-bind:class="[pageName === 'solde' ? 'active' : '']"><a href="/solde">Solde</a></li>
                 <li v-if="!isLoggedIn" v-bind:class="[pageName === 'login' ? 'login' : 'login']"><a href="/login">Sign in</a></li>
-                <li v-else @click.prevent="logout" v-bind:class="[pageName === 'logout' ? 'logout' : 'logout']"><a>Logout</a></li>
+                <Dropdown v-else :title="username" :items="services" />
             </ul>
         </nav>
     </header>
@@ -16,24 +16,39 @@
 
 <script>
 import store from "../store"
-import axios from "axios";
+import Dropdown from "./Dropdown.vue";
+
 export default {
     name: "Navbar",
+    components: {
+        Dropdown,
+    },
+    data () {
+        return {
+            showModal: false,
+            services: [
+                {
+                    title: 'Profile settings',
+                    link: {name: 'settings.profile'}
+                },
+                {
+                    title: 'View profile',
+                    link: {name: 'settings.profile'}
+                },
+            ]
+        }
+    },
     props: {
         pageName: String,
     },
     computed: {
         isLoggedIn() {
             return store.state.user.isAuthenticated
+        },
+        username() {
+            return store.state.user.data.firstname + " " + store.state.user.data.lastname
         }
     },
-    methods: {
-        async logout() {
-            await axios.post("api/auth/logout")
-            await store.dispatch('setIsAuthenticated', false)
-            this.$router.push({name: "login"})
-        }
-    }
 }
 </script>
 
@@ -119,6 +134,20 @@ nav {
             line-height: 15px;
             padding: 0.5rem 1rem;
         }
+    }
+
+    .zdahlajdza {
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 800;
+        font-size: 12px;
+        line-height: 15px;
+        padding: 0.5rem 1rem;
+        background-color: hsla(0,0%,100%,.09);
+        border-radius: 0.375rem;
     }
 }
 </style>

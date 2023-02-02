@@ -76,7 +76,7 @@ export default {
             const { data } = response
 
             if (data.status === 200) {
-                await store.dispatch('setIsAuthenticated', true)
+                await store.dispatch('setIsAuthenticated', {"isAuthenticated": true, "User": data.user})
                 this.$router.push({name: "home"})
             } else if (data.status === 422)  {
                 this.errors = data.error;

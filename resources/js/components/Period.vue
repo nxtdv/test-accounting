@@ -16,10 +16,10 @@ export default {
     name: "Period",
     computed: {
         verificationIsEmptyMinDate() {
-            return this.$store.state.ribFrom.minDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.minDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': '1px solid hsla(0,0%,100%,.09);' };
         },
         verificationIsEmptyMaxDate() {
-            return this.$store.state.ribFrom.maxDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': 'none' };
+            return this.$store.state.ribFrom.maxDate ? { 'border': '2px solid rgba(200, 254, 199,.50)' } : { 'border': '1px solid hsla(0,0%,100%,.09);' };
         },
     }
 }
