@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +13,5 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/api/transactions/{rib}', [PostController::class, 'getTransactionsByRib']); // getByRib
-
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/calculator', function () {
-    return view('calculator');
-});
+Route::view('/{any}', 'app')
+    ->where('any', '.*');

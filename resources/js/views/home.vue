@@ -1,29 +1,29 @@
 <template>
-    <div class="container">
+    <div class="home-container">
         <navbar page-name="home"></navbar>
 
-        <div class="main">
-            <r-i-b v-bind:input-area="inputArea" v-bind:regex="regex" v-bind:min-date="minDate" v-bind:max-date="maxDate" v-bind:submit-form="submitForm"></r-i-b>
+        <div class="container">
+            <r-i-b v-bind:regex="regex" v-bind:submit-form="submitForm"></r-i-b>
 
-            <div class="operationContainer">
-                <div class="titleTransaction">
+            <div class="transactions-container">
+                <div class="title-transaction">
                     TRANSACTION
                 </div>
 
                 <div  class="transactions">
-                    <div class="templateTransactions">
-                        <span class="same">Name</span>
-                        <span class="same">ID</span>
-                        <span class="same">RIB</span>
-                        <span class="same">Recette</span>
-                        <span class="same">Dépense</span>
-                        <span class="same">Date</span>
+                    <div class="template-transactions">
+                        <span class="value-in-transaction">Name</span>
+                        <span class="value-in-transaction">ID</span>
+                        <span class="value-in-transaction">RIB</span>
+                        <span class="value-in-transaction">Recette</span>
+                        <span class="value-in-transaction">Dépense</span>
+                        <span class="value-in-transaction">Date</span>
                     </div>
 
                     <loader style="margin-top: 200px" v-if="loading"></loader>
-                    <div class="condition" v-else-if="!loading">
-                        <span style="margin-top: 200px" v-if="!allTransactionsRequested.length">No transaction found or enter a RIB.</span>
-                        <operation v-else v-bind:allTransactionsRequested="allTransactionsRequested"></operation>
+                    <div class="list-transactions" v-else-if="!loading">
+                        <span style="margin-top: 200px" v-if="!transactionsRequested.length">No transaction found or enter a RIB.</span>
+                        <transaction v-else v-bind:transactionsRequested="transactionsRequested"></transaction>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
 import RIB from "../components/RIB.vue"
-import Operation from "../components/Operation.vue";
+import Transaction from "../components/Transaction.vue";
 import Loader from "../components/Loader.vue";
 
 export default {
@@ -43,104 +43,118 @@ export default {
     components: {
         Navbar,
         RIB,
-        Operation,
+        Transaction,
         Loader
     },
     data() {
         return {
             regex: false,
             loading: false,
-            allTransactionsRequested: [],
-            inputArea: "12345123412345678912",
-            minDate: "2021-02-10",
-            maxDate: "2024-11-14",
+            transactionsRequested: [],
+            inputArea: null,
+            minDate: null,
+            maxDate: null,
         }
     },
     methods: {
         async submitForm() {
-            this.loading = true
-            setTimeout(() => this.loading = false, 3000)
+            this.$store.state.ribFrom.error = null
+            this.inputArea = this.$store.state.ribFrom.rib
+            this.minDate = this.$store.state.ribFrom.minDate
+            this.maxDate = this.$store.state.ribFrom.maxDate
+            this.transactionsRequested = []
 
-            this.allTransactionsRequested = []
             if (!this.inputArea && !this.minDate && !this.maxDate) {
                 return (this.regex = true)
             }
 
-            if (!isNaN(this.inputArea)) {
-                const { minDate, maxDate, allTransactionsRequested } = this;
-                const response = await axios.get(`/api/transactions/${this.inputArea}`);
-                const { data: allOperations } = response
+            const { minDate, maxDate, transactionsRequested } = this;
+            const response = await axios.post(`api/transactions`, {
+                rib: this.inputArea,
+                minDate: this.minDate,
+                maxDate: this.maxDate,
+            });
 
-                allOperations.forEach(function(operation) {
-                    if (operation.date >= minDate && operation.date <= maxDate) {
-                        allTransactionsRequested.push(operation)
+            const { data: result } = response
 
-                        if (allTransactionsRequested) {
-                            allTransactionsRequested.sort(function (operationA, operationB) {
-                                return (new Date(operationB.date) - new Date(operationA.date))
+            if (result.status === 200) {
+                this.loading = true
+                setTimeout(() => this.loading = false, 3000)
+                result.data.forEach(function(transaction) {
+                    if (transaction.date >= minDate && transaction.date <= maxDate) {
+                        transactionsRequested.push(transaction)
+
+                        if (transactionsRequested) {
+                            transactionsRequested.sort(function (transactionA, transactionB) {
+                                return (new Date(transactionB.date) - new Date(transactionA.date))
                             })
                         }
                     }
                 })
+            } else if (result.status === 403) {
+                this.$store.state.ribFrom.error = result.error
             }
         }
     }
 }
 </script>
 
-<style scoped>
-.container {
+<style lang="scss" scoped>
+@import "resources/sass/variables";
+
+.home-container {
     color: #ffffff;
-}
 
-.main {
-    display: flex;
-    margin-top: 50px;
-}
+    .container {
+        display: flex;
+        margin-top: 50px;
 
-.operationContainer {
-    width: 100%;
-    height: 100%;
-    padding: 0 100px 0 50px;
-}
+        .transactions-container {
+            width: 100%;
+            height: 100%;
+            padding: 0 100px 0 50px;
 
-.operationContainer .titleTransaction {
-    font-weight: 700;
-    font-size: 40px;
-}
+            .title-transaction {
+                font-weight: 700;
+                font-size: 40px;
+            }
 
-.operationContainer .transactions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+            .transactions {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
-.operationContainer .transactions .templateTransactions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 3rem;
-    color: #C8FEC7;
-    background-color: hsla(0,0%,100%,.09);
-    margin-top: 50px;
-    font-weight: 600;
-    font-size: .875rem;
-    line-height: 1.25rem;
-    letter-spacing: .0025em;
-    padding: 0 1rem 0 1rem;
-    border-radius: 0.25rem;
-}
+                .template-transactions {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    height: 3rem;
+                    color: $green-general;
+                    background-color: hsla(0,0%,100%,.09);
+                    margin-top: 50px;
+                    font-weight: 600;
+                    font-size: .875rem;
+                    line-height: 1.25rem;
+                    letter-spacing: .0025em;
+                    padding: 0 1rem;
+                    border-radius: 0.25rem;
 
-.operationContainer .transactions .condition {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
+                    .value-in-transaction {
+                        display: flex;
+                        justify-content: center;
+                        width: 160px;
+                    }
+                }
 
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration { display: none; }
+                .list-transactions {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
 </style>

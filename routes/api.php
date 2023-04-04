@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('transactions', [PostController::class, 'getTransactionsByRib']);
+
+Route::controller(AuthController::class)
+    ->prefix("auth")
+    ->group(function () {
+        Route::post("login", "login");
+        Route::post("logout", "logout");
+        Route::post("register", "register");
+    });
+
+Route::get("dashboard", [AuthController::class, "dashboard"])
+    ->middleware('auth');
